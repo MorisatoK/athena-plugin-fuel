@@ -1,14 +1,13 @@
 import * as alt from 'alt-server';
-import { Athena } from '../../../../server/api/athena';
-import { VehicleEvents } from '../../../../server/events/vehicleEvents';
-import { ATHENA_EVENTS_VEHICLE } from '../../../../shared/enums/athenaEvents';
-import { Vehicle_Behavior, VEHICLE_STATE } from '../../../../shared/enums/vehicle';
-import { VEHICLE_RULES } from '../../../../shared/enums/vehicleRules';
-import { VEHICLE_CLASS } from '../../../../shared/enums/vehicleTypeFlags';
-import { VehicleData } from '../../../../shared/information/vehicles';
-import { IVehicle } from '../../../../shared/interfaces/iVehicle';
-import { isFlagEnabled } from '../../../../shared/utility/flags';
-import { distance2d } from '../../../../shared/utility/vector';
+import { Athena } from '@AthenaServer/api/athena';
+import { ATHENA_EVENTS_VEHICLE } from '@AthenaShared/enums/athenaEvents';
+import { Vehicle_Behavior, VEHICLE_STATE } from '@AthenaShared/enums/vehicle';
+import { VEHICLE_RULES } from '@AthenaShared/enums/vehicleRules';
+import { VEHICLE_CLASS } from '@AthenaShared/enums/vehicleTypeFlags';
+import { VehicleData } from '@AthenaShared/information/vehicles';
+import { IVehicle } from '@AthenaShared/interfaces/iVehicle';
+import { isFlagEnabled } from '@AthenaShared/utility/flags';
+import { distance2d } from '@AthenaShared/utility/vector';
 import { LOCALE_FUEL } from '../../shared/locales';
 import { FuelCommands } from './commands';
 import { FUEL_CONFIG } from './config';
@@ -31,7 +30,7 @@ export class FuelSystem {
                 return { status: false, response: LOCALE_FUEL.VEHICLE_NO_FUEL };
             }
 
-            if (player.vehicle.isRefueling) {
+            if (player.vehicle['isRefueling']) {
                 Athena.player.emit.notification(player, LOCALE_FUEL.VEHICLE_IS_BEING_REFUELED);
                 return { status: false, response: LOCALE_FUEL.VEHICLE_IS_BEING_REFUELED };
             }
@@ -139,7 +138,7 @@ export class FuelSystem {
             // const feetPerSecond = potentialSpeed * 1.4666666667;
             // const distanceTraveled = (potentialSpeed / 3600) * timeBetweenUpdates;
 
-            VehicleEvents.trigger(ATHENA_EVENTS_VEHICLE.DISTANCE_TRAVELED, vehicle, dist);
+            Athena.events.vehicle.trigger(ATHENA_EVENTS_VEHICLE.DISTANCE_TRAVELED, vehicle, dist);
             vehicle.lastPosition = vehicle.pos;
         }
 

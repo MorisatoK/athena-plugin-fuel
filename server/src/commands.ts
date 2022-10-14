@@ -1,9 +1,8 @@
 import * as alt from 'alt-server';
-import { Athena } from '../../../../server/api/athena';
-import ChatController from '../../../../server/systems/chat';
-import { Vehicle_Behavior, VEHICLE_STATE } from '../../../../shared/enums/vehicle';
-import { PERMISSIONS } from '../../../../shared/flags/permissionFlags';
-import { isFlagEnabled } from '../../../../shared/utility/flags';
+import { Athena } from '@AthenaServer/api/athena';
+import { Vehicle_Behavior, VEHICLE_STATE } from '@AthenaShared/enums/vehicle';
+import { PERMISSIONS } from '@AthenaShared/flags/permissionFlags';
+import { isFlagEnabled } from '@AthenaShared/utility/flags';
 import { FUEL_CONFIG } from './config';
 
 function setFuel(player: alt.Player, amount: string) {
@@ -35,6 +34,6 @@ function setFuel(player: alt.Player, amount: string) {
 
 export class FuelCommands {
     static init() {
-        ChatController.addCommand('setfuel', '/setfuel [amount]', PERMISSIONS.ADMIN, setFuel);
+        Athena.controllers.chat.addCommand('setfuel', '/setfuel [amount]', PERMISSIONS.ADMIN, setFuel);
     }
 }
