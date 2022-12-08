@@ -6,5 +6,5 @@ const PLUGIN_NAME = 'Athena Fuel';
 
 PluginSystem.registerPlugin(PLUGIN_NAME, async () => {
     FuelSystem.init();
-    alt.log(`~lg~CORE ==> ${PLUGIN_NAME} was Loaded`);
+    alt.log(`~lg~${PLUGIN_NAME} was Loaded`);
 });
